@@ -49,6 +49,33 @@ hist(Qn)
 dev.off()
 
 
+# We generate plots of side-by-side and overlapped histrograms
+# Side by side
+jpeg('./plots/Side by side P and Q histograms.jpg')
+par(mfrow=c(1,2))
+hist(P,main="")
+hist(Q,main="")
+dev.off()
+
+# Overlapped
+jpeg('./plots/Overlapped P and Q historgrams.jpg')
+hist(P,xlim=c(500,520),ylim=c(0,6150),breaks=16,col=rgb(1,1,0,0.7),main="",xlab="number")
+par(new=TRUE)
+hist(Q,xlim=c(500,520),ylim=c(0,6150),breaks=16,col=rgb(0,1,1,0.4),main="",xlab="",ylab="")
+dev.off()
+
+# We generate plots of side-by-side and overlapped normalized histrograms
+# Side by side
+par(mfrow=c(1,2))
+hist(Pn,main="")
+hist(Qn,main="")
+
+# Overlapped
+hist(Pn,xlim=c(3e-5,5e-5),ylim=c(0,10000),breaks=16,col=rgb(1,1,0,0.7),main="",xlab="number")
+par(new=TRUE)
+hist(Qn,xlim=c(3e-5,5e-5),ylim=c(0,10000),breaks=16,col=rgb(0,1,1,0.4),main="",xlab="",ylab="")
+
+
 # We can check implemented distance/similarity functions
 getDistMethods()
 
@@ -57,17 +84,11 @@ distance(rbind(P,Q), method = "jaccard")
 distance(rbind(P,Q), method = "jensen-shannon")
 
 
+distance(rbind(Pn,Qn), method = "euclidean")
+distance(rbind(Pn,Qn), method = "jaccard")
+distance(rbind(Pn,Qn), method = "jensen-shannon")
 
-distance(x, method = "jaccard")
-distance(x, method = "jensen-shannon")
 
-mean(P)
-mean(Q)
-sd(P)
-sd(Q)
-m <- 0.5 * (P + Q)
-JS <- 0.5 * (sum(P * log(P / m)) + sum(Q * log(Q / m)))
-JS
 
 
 
