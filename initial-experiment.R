@@ -64,17 +64,20 @@ par(new=TRUE)
 hist(Q,xlim=c(500,520),ylim=c(0,6150),breaks=16,col=rgb(0,1,1,0.4),main="",xlab="",ylab="")
 dev.off()
 
-# We generate plots of side-by-side and overlapped normalized histrograms
+# We generate plots of side-by-side and overlapped normalised histrograms
 # Side by side
+jpeg('./plots/Side by side Pn and Qn histograms.jpg')
 par(mfrow=c(1,2))
 hist(Pn,main="")
 hist(Qn,main="")
+dev.off()
 
 # Overlapped
+jpeg('./plots/Overlapped Pn and Qn historgrams.jpg')
 hist(Pn,xlim=c(3e-5,5e-5),ylim=c(0,10000),breaks=16,col=rgb(1,1,0,0.7),main="",xlab="number")
 par(new=TRUE)
 hist(Qn,xlim=c(3e-5,5e-5),ylim=c(0,10000),breaks=16,col=rgb(0,1,1,0.4),main="",xlab="",ylab="")
-
+dev.off()
 
 # We can check implemented distance/similarity functions
 getDistMethods()
@@ -84,23 +87,12 @@ distance(rbind(P,Q), method = "jaccard")
 distance(rbind(P,Q), method = "jensen-shannon")
 
 
-distance(rbind(Pn,Qn), method = "euclidean")
-distance(rbind(Pn,Qn), method = "jaccard")
-distance(rbind(Pn,Qn), method = "jensen-shannon")
+# Let's generate all metrics for these distributions
+dist.diversity(rbind(Pn,Qn))
 
 
 
 
-
-#combine three probabilty vectors to a probabilty matrix 
-ProbMatrix <- rbind(1:10/sum(1:10), 20:29/sum(20:29),30:39/sum(30:39))
-# compute the euclidean distance between all 
-# pairwise comparisons of probability vectors
-distance(ProbMatrix, method = "euclidean")
-
-
-
-distance(rbind(P,P), method = "jensen-shannon")
 
 
 
@@ -144,3 +136,19 @@ distance(rbind(a,b),method = "euclidean")
 
 
 dist.diversity(rbind(P,Q))
+
+
+
+
+
+
+
+#combine three probabilty vectors to a probabilty matrix 
+ProbMatrix <- rbind(1:10/sum(1:10), 20:29/sum(20:29),30:39/sum(30:39))
+# compute the euclidean distance between all 
+# pairwise comparisons of probability vectors
+distance(ProbMatrix, method = "euclidean")
+
+
+
+distance(rbind(P,P), method = "jensen-shannon")
