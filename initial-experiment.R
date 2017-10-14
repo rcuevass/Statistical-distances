@@ -18,14 +18,44 @@ jpeg('./plots/Hist_Q.jpg')
 hist(Q)
 dev.off()
 
+# Metrics of central tendency
+mean(P)
+mean(Q)
+sd(P)
+sd(Q)
+median(P)
+median(Q)
 
-# combine P and Q as matrix object
-x <- rbind(P,Q)
-class(x)
-x
+# Let's normalize the distributions
+Pn<-P/sum(P)
+Qn<-P/sum(Q)
 
-# names of implemented distance/similarity functions
+mean(Pn)
+mean(Qn)
+
+sd(Pn)
+sd(Qn)
+
+median(Pn)
+median(Qn)
+
+# Generate historgrams of normalized distributions
+jpeg('./plots/Hist_P normalized.jpg')
+hist(Pn)
+dev.off()
+
+jpeg('./plots/Hist_Q normalized.jpg')
+hist(Qn)
+dev.off()
+
+
+# We can check implemented distance/similarity functions
 getDistMethods()
+
+distance(rbind(P,Q), method = "euclidean")
+distance(rbind(P,Q), method = "jaccard")
+distance(rbind(P,Q), method = "jensen-shannon")
+
 
 
 distance(x, method = "jaccard")
