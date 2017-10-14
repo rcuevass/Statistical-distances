@@ -80,16 +80,43 @@ hist(Qn,xlim=c(3e-5,5e-5),ylim=c(0,10000),breaks=16,col=rgb(0,1,1,0.4),main="",x
 dev.off()
 
 # We can check implemented distance/similarity functions
-getDistMethods()
+metrics_names<-getDistMethods()
 
 distance(rbind(P,Q), method = "euclidean")
 distance(rbind(P,Q), method = "jaccard")
 distance(rbind(P,Q), method = "jensen-shannon")
+distance(rbind(P,Q), method = "inner_product")
+distance(rbind(P,Q), method = "cosine")
 
+# Note that if the distributions are not normalized the following
+# command fails
+dist.diversity(rbind(P,Q))
 
-# Let's generate all metrics for these distributions
-dist.diversity(rbind(Pn,Qn))
+# We test same metrics as before for the normalized distributions
+distance(rbind(Pn,Qn), method = "euclidean")
+distance(rbind(Pn,Qn), method = "jaccard")
+distance(rbind(Pn,Qn), method = "jensen-shannon")
+distance(rbind(Pn,Qn), method = "inner_product")
+distance(rbind(Pn,Qn), method = "cosine")
 
+metrics_values <- (dist.diversity(rbind(Pn,Qn)))
+
+# Let's generate all metrics for these distributions and save
+# to csv file for further review
+dfMetrics<-data.frame(metrics_names,metrics_values)
+dfMetrics<-data.frame(dfMetrics$metrics_names,dfMetrics$metrics_values)
+names(dfMetrics) <- c("metric_name","metric_value")
+# Sort dataframe by value of metric
+dfMetrics<-dfMetrics[with(dfMetrics, order(metrics_values)), ]
+
+write.csv(dfMetrics,"./output_data/summary_metrics.csv")
+
+# Generate bar plot of metrics
+jpeg('./plots/barplot_metrics.jpg')
+barplot(dfMetrics$metric_value, names = dfMetrics$metric_name,
+        xlab = "Metric name", ylab = "Value",
+        main = "Summary of statistical metrics",horiz = FALSE)
+dev.off()
 
 
 
