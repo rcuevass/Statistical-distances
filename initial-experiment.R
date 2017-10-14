@@ -15,7 +15,7 @@ hist(P)
 dev.off()
 
 jpeg('./plots/Hist_Q.jpg')
-hist(P)
+hist(Q)
 dev.off()
 
 
