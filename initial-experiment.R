@@ -9,8 +9,16 @@ library(philentropy)
 P<-rnorm(30000,mean=507,sd=0.9)
 Q<-rnorm(30000,mean=510,sd=1.1)
 
+
+jpeg('./plots/Hist_P.jpg')
 hist(P)
-hist(Q)
+dev.off()
+
+jpeg('./plots/Hist_Q.jpg')
+hist(P)
+dev.off()
+
+
 # combine P and Q as matrix object
 x <- rbind(P,Q)
 class(x)
