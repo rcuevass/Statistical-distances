@@ -1,12 +1,14 @@
-# Reference:
-# https://cran.r-project.org/web/packages/philentropy/vignettes/Distances.html
-# Plotting two histograms
-# http://www.shizukalab.com/toolkits/overlapping-histograms
+# Make sure the package "philentropy" is installed. Otherwise
+# do so by using the following:
+#install.packages("philentropy")
 
-install.packages("philentropy")
+# Assuming the library is already installed; let's invoke it
 library(philentropy)
-P <- 1:10/sum(1:10)
-Q <- 20:29/sum(20:29)
+
+# Lets create two "artificial" simple distributions
+P<-rnorm(30000,mean=507,sd=0.9)
+Q<-rnorm(30000,mean=510,sd=1.1)
+
 hist(P)
 hist(Q)
 # combine P and Q as matrix object
@@ -83,4 +85,3 @@ distance(rbind(a,b),method = "euclidean")
 
 
 dist.diversity(rbind(P,Q))
-
