@@ -20,13 +20,12 @@ z <- rnorm(30000)
 ks.test(x,y)
 ks.test(x,z)
 
+# Permutation tests with coin library
 library(coin)
 
-# permutation test
 df1<-data.frame(P,Q)
 head(df1,10)
 independence_test(P~Q,df1)
-
 
 df2<-data.frame(x,y,z)
 independence_test(x~y,df2)
